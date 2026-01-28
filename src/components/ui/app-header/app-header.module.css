@@ -18,10 +18,13 @@
   display: flex;
   text-decoration: none;
   color: var(--text-inactive-color);
+  align-items: center;
+  line-height: 1;
 }
 
 .link_active {
   color: var(--text-primary-color);
+  text-decoration: none;
 }
 
 .link_position_last {
