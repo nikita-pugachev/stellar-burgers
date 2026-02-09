@@ -118,7 +118,7 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Modal title='' onClose={modalClose}>
-                  <IngredientDetails />
+                  <OrderInfo />
                 </Modal>
               </ProtectedRoute>
             }

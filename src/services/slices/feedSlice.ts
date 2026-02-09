@@ -26,11 +26,7 @@ export const feedFetch = createAsyncThunk('feed/feedFetch', async () => {
 export const feedSlice = createSlice({
   name: 'feed',
   initialState,
-  reducers: {
-    clearErrors: (state) => {
-      state.errors = null;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(feedFetch.fulfilled, (state, action) => {
       state.orders = action.payload.orders;
@@ -45,5 +41,4 @@ export const feedSlice = createSlice({
   }
 });
 
-export const { clearErrors } = feedSlice.actions;
 export default feedSlice.reducer;

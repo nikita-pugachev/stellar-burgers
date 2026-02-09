@@ -3,15 +3,14 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { countOrder, clearOrder } from '../../services/slices/orderSlice';
 
 export const OrderInfo: FC = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const { number } = useParams<{ number: string }>();
 
-  const { order: orderData, loading } = useSelector((state) => state.order);
+  const { order: orderData } = useSelector((state) => state.order);
   const ingredients: TIngredient[] = useSelector(
     (state) => state.ingredients.ingredients
   );
