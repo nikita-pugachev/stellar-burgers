@@ -41,13 +41,14 @@ export const constructorSlice = createSlice({
         }
         state.total = price(state.bun, state.ingredients);
       },
-      prepare: (ingredient: TIngredient) => ({
-        payload: { ...ingredient, id: uuidv4() }
-      })
+      prepare: (ingredient: TIngredient) => {
+        const id = uuidv4();
+        return { payload: { ...ingredient, id } };
+      }
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
       state.ingredients = state.ingredients.filter(
-        (item) => item._id !== action.payload
+        (item) => item.id !== action.payload
       );
       state.total = price(state.bun, state.ingredients);
     },
