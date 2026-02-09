@@ -5,7 +5,7 @@ import { getIngredientsApi } from '../../utils/burger-api';
 interface IIngredientState {
   ingredients: TIngredient[];
   loading: boolean;
-  errors: string | null | undefined;
+  errors: string | null;
 }
 
 export const initialState: IIngredientState = {
@@ -15,18 +15,22 @@ export const initialState: IIngredientState = {
 };
 
 export const ingredientFetch = createAsyncThunk(
-  'imgredient/ingredientFetch',
-  async () => await getIngredientsApi()
+  'ingredients/ingredientFetch',
+  async () => {
+    const response = await getIngredientsApi();
+    return response;
+  }
 );
 
 export const ingredientSlice = createSlice({
-  name: 'ingredient',
+  name: 'ingredients',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(ingredientFetch.pending, (state) => {
         state.loading = true;
+        state.errors = null;
       })
       .addCase(ingredientFetch.fulfilled, (state, action) => {
         state.loading = false;
@@ -34,7 +38,9 @@ export const ingredientSlice = createSlice({
       })
       .addCase(ingredientFetch.rejected, (state, action) => {
         state.loading = false;
-        state.errors = action.error.message;
+        state.errors =
+          action.error.message ||
+          'Ошибка при загрузке списка ингредиентов, попробуйте снова.';
       });
   },
   selectors: {

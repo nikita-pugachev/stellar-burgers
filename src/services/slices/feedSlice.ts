@@ -20,9 +20,6 @@ export const initialState: IFeedState = {
 
 export const feedFetch = createAsyncThunk('feed/feedFetch', async () => {
   const response = await getFeedsApi();
-  if (!response.success) {
-    throw new Error('Ошибка загрузки');
-  }
   return response;
 });
 

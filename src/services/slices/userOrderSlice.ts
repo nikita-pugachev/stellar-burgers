@@ -14,9 +14,10 @@ export const initialState: IUserOrderState = {
   errors: null
 };
 
-export const userOrders = createAsyncThunk('userOrder/userOrders', async () =>
-  getOrdersApi()
-);
+export const userOrders = createAsyncThunk('userOrder/userOrders', async () => {
+  const response = await getOrdersApi();
+  return response;
+});
 
 export const userOrdersSlice = createSlice({
   name: 'userOrder',
@@ -24,9 +25,6 @@ export const userOrdersSlice = createSlice({
   reducers: {
     clearOrders: (state) => {
       state.orders = [];
-    },
-    clearOrdersErrors: (state) => {
-      state.errors = null;
     }
   },
   extraReducers: (builder) => {
@@ -46,5 +44,5 @@ export const userOrdersSlice = createSlice({
   }
 });
 
-export const { clearOrders, clearOrdersErrors } = userOrdersSlice.actions;
+export const { clearOrders } = userOrdersSlice.actions;
 export default userOrdersSlice.reducer;

@@ -27,12 +27,8 @@ export const userLogin = createAsyncThunk(
   'user/userLogin',
   async (userData: { email: string; password: string }) => {
     const response = await loginUserApi(userData);
-    if (!response.success) {
-      throw new Error('Ошибка входа в аккаунт');
-    }
+    setCookie('accessToken', response.accessToken);
     localStorage.setItem('refreshToken', response.refreshToken);
-    const loginToken = response.accessToken.replace('Bearer', '');
-    setCookie('accessToken', loginToken);
     return response;
   }
 );
@@ -41,12 +37,8 @@ export const userRegistration = createAsyncThunk(
   'user/userRegistration',
   async (userData: { email: string; password: string; name: string }) => {
     const response = await registerUserApi(userData);
-    if (!response.success) {
-      throw new Error('Ошибка! Регистрация не завершена');
-    }
+    setCookie('accessToken', response.accessToken);
     localStorage.setItem('refreshToken', response.refreshToken);
-    const loginToken = response.accessToken.replace('Bearer', '');
-    setCookie('accessToken', loginToken);
     return response;
   }
 );
@@ -55,32 +47,20 @@ export const userEdit = createAsyncThunk(
   'user/userEdit',
   async (userData: { email: string; password?: string; name: string }) => {
     const response = await updateUserApi(userData);
-    if (!response.success) {
-      throw new Error('При редактировании данных произошла ошибка');
-    }
     return response;
   }
 );
 
 export const userInfo = createAsyncThunk('user/userInfo', async () => {
-  try {
-    const response = await getUserApi();
-    if (!response.success) {
-      throw new Error('Ошибка получения данных');
-    }
-    return response;
-  } catch (error) {
-    localStorage.removeItem('refreshToken');
-    deleteCookie('refreshToken');
-    throw error;
-  }
+  const response = await getUserApi();
+  return response;
 });
 
 export const userLogout = createAsyncThunk('user/userLogout', async () => {
   const response = await logoutApi();
 
   localStorage.removeItem('refreshToken');
-  deleteCookie('refreshToken');
+  deleteCookie('accessToken');
 
   return response;
 });
@@ -128,7 +108,7 @@ export const userSlice = createSlice({
       })
       .addCase(userInfo.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.isLogin = false;
+        state.isLogin = true;
       })
       .addCase(userLogout.fulfilled, (state) => {
         state.user = null;

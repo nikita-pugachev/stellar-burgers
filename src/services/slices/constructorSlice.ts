@@ -34,19 +34,21 @@ export const constructorSlice = createSlice({
   reducers: {
     addIngredients: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
-        if ((action.payload.type = 'bun')) {
+        if (action.payload.type === 'bun') {
           state.bun = action.payload;
-          state.total = price(state.bun, state.ingredients);
         } else {
           state.ingredients.push(action.payload);
         }
+        state.total = price(state.bun, state.ingredients);
       },
       prepare: (ingredient: TIngredient) => ({
         payload: { ...ingredient, id: uuidv4() }
       })
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      state.ingredients.filter((item) => item._id !== action.payload);
+      state.ingredients = state.ingredients.filter(
+        (item) => item._id !== action.payload
+      );
       state.total = price(state.bun, state.ingredients);
     },
     moveIngredients: (

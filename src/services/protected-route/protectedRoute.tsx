@@ -1,8 +1,7 @@
 import { ReactElement, useEffect, FC } from 'react';
-import { userInfo } from '../slices/userSlice';
-import { getCookie } from '../../utils/cookie';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from '../../services/store';
+import { useSelector } from '../../services/store';
+import { Preloader } from '@ui';
 
 interface Props {
   children: ReactElement;
@@ -10,24 +9,14 @@ interface Props {
 }
 
 export const ProtectedRoute: FC<Props> = ({ children, onlyUnAuth = false }) => {
-  const { isLogin, user } = useSelector((store) => store.user);
+  const { user } = useSelector((store) => store.user);
   const location = useLocation();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (
-      localStorage.getItem('accessToken') ||
-      (getCookie('accessToken') && !user)
-    ) {
-      dispatch(userInfo());
-    }
-  }, [dispatch, user]);
-
-  if (!onlyUnAuth && !isLogin) {
+  if (!onlyUnAuth && !user) {
     return <Navigate to='/login' state={{ from: location }} replace />;
   }
 
-  if (onlyUnAuth && isLogin) {
+  if (onlyUnAuth && user) {
     return <Navigate to={location.state?.from || '/'} replace />;
   }
 

@@ -20,9 +20,6 @@ export const newOrder = createAsyncThunk(
   'order/newOrder',
   async (ingredients: string[]) => {
     const response = await orderBurgerApi(ingredients);
-    if (!response.success) {
-      throw new Error('При оформлении заказа произошла ошибка');
-    }
     return response;
   }
 );
@@ -31,9 +28,6 @@ export const countOrder = createAsyncThunk(
   'order/countOrder',
   async (count: number) => {
     const response = await getOrderByNumberApi(count);
-    if (!response.success) {
-      throw new Error('Произошла ошибка! Попробуйте снова');
-    }
     return response.orders[0];
   }
 );

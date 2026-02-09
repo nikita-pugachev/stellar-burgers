@@ -17,7 +17,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
           <Link
             to='/'
             className={
-              location.pathname === '/' ? styles.ink_active : styles.link
+              location.pathname === '/' ? styles.link_active : styles.link
             }
           >
             <BurgerIcon type={'primary'} />
@@ -29,7 +29,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
             to='/feed'
             className={
               location.pathname.includes('feed')
-                ? styles.ink_active
+                ? styles.link_active
                 : styles.link
             }
           >
@@ -45,7 +45,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
             to='profile'
             className={
               location.pathname.includes('profile')
-                ? styles.ink_active
+                ? styles.link_active
                 : styles.link
             }
           >

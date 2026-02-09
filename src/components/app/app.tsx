@@ -17,8 +17,9 @@ import { useDispatch } from '../../services/store';
 import { ProtectedRoute } from '../../services/protected-route/protectedRoute';
 import { userInfo } from '../../services/slices/userSlice';
 import { ingredientFetch } from '../../services/slices/ingredientSlice';
-import { getCookie } from '../../utils/cookie';
+import { feedFetch } from '../../services/slices/feedSlice';
 import { useEffect } from 'react';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const location = useLocation();
@@ -26,16 +27,17 @@ const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const modalClose = () => {
-    navigate(-1);
-  };
-
   useEffect(() => {
-    if (localStorage.getItem('refreshToken') || getCookie('accessToken')) {
+    if (getCookie('accessToken')) {
       dispatch(userInfo());
     }
     dispatch(ingredientFetch());
-  }, []);
+    dispatch(feedFetch());
+  }, [dispatch]);
+
+  const modalClose = () => {
+    navigate(-1);
+  };
 
   return (
     <div className={styles.app}>
