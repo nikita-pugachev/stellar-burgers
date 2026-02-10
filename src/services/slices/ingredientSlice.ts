@@ -42,7 +42,13 @@ export const ingredientSlice = createSlice({
           action.error.message ||
           'Ошибка при загрузке списка ингредиентов, попробуйте снова.';
       });
+  },
+  selectors: {
+    getStateIngredients: (state) => state,
+    getIngredients: (state) => state.ingredients
   }
 });
 
+export const { getStateIngredients, getIngredients } =
+  ingredientSlice.selectors;
 export default ingredientSlice.reducer;

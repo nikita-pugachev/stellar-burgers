@@ -35,10 +35,11 @@ export const feedSlice = createSlice({
     });
   },
   selectors: {
-    getOrders: (state) => state.orders,
-    getTotal: (state) => state.total,
-    getTotalDay: (state) => state.totalDay
+    getStateFeed: (state) => state,
+    getOrders: (state) => state.orders
   }
 });
 
+export const { getStateFeed, getOrders } =
+  feedSlice.selectors;
 export default feedSlice.reducer;

@@ -8,6 +8,7 @@ import {
   updateUserApi,
   logoutApi
 } from '../../utils/burger-api';
+import { get } from 'http';
 
 interface IUserState {
   user: TUser | null;
@@ -110,7 +111,11 @@ export const userSlice = createSlice({
         state.user = null;
         state.isLogin = false;
       });
+  },
+  selectors: {
+    getUser: (state) => state.user
   }
 });
 
+export const { getUser } = userSlice.selectors;
 export default userSlice.reducer;

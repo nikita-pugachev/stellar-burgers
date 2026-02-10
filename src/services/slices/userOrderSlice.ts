@@ -41,8 +41,12 @@ export const userOrdersSlice = createSlice({
         state.errors =
           action.error.message || 'Произошла ошибка. Попробуйте снова';
       });
+  },
+  selectors: {
+    getUserOrders: (state) => state.orders
   }
 });
 
+export const { getUserOrders } = userOrdersSlice.selectors;
 export const { clearOrders } = userOrdersSlice.actions;
 export default userOrdersSlice.reducer;
