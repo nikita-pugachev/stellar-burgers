@@ -113,6 +113,7 @@ export const userSlice = createSlice({
       });
   },
   selectors: {
+    getCheckLogin: (state) => state.isLogin,
     getUser: (state) => state.user
   }
 });

@@ -2,7 +2,11 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
-import { newOrder, clearOrder } from '../../services/slices/orderSlice';
+import {
+  newOrder,
+  clearOrder,
+  getstateOrder
+} from '../../services/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 import { clearIngredients } from '../../services/slices/constructorSlice';
 
@@ -16,9 +20,8 @@ export const BurgerConstructor: FC = () => {
     ingredients
   };
 
-  const { loading: orderRequest, order: orderModalData } = useSelector(
-    (state) => state.order
-  );
+  const { loading: orderRequest, order: orderModalData } =
+    useSelector(getstateOrder);
 
   const { isLogin } = useSelector((state) => state.user);
 
