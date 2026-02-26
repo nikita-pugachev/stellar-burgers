@@ -43,5 +43,8 @@ describe("Оформление заказа", () => {
         cy.get("[data-cy=bun-top]").should("not.exist");
         cy.get("[data-cy=bun-bottom]").should("not.exist");
         cy.get("[data-cy=constructor-ingredient]").should("have.length", 0);
+
+        cy.clearCookies();
+        cy.clearLocalStorage();
     });
 });
