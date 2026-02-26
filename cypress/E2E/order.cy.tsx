@@ -1,25 +1,31 @@
 describe("Оформление заказа", () => {
-    const API_URL = "https://norma.education-services.ru/api";
+    const bun = "[data-cy=bun]";
+    const ingredient = "[data-cy=ingredient-card]";
+    const constructorBunTop = "[data-cy=bun-top]";
+    const constructorBunBottom = "[data-cy=bun-bottom]";
+    const constructorIngredient = "[data-cy=constructor-ingredient]";
+    const modalClose = "[data-cy=modal-close]";
+    const modalInfo = "[data-cy=modal-ingredient]"
     beforeEach(() => {
-        cy.intercept("GET", `${API_URL}/ingredients`, {
+        cy.intercept("GET", `api/ingredients`, {
             fixture: "ingredients.json",
         });
         cy.visit('/');
     });
 
     it("Добавления ингредиентов в конструктор", () => {
-        cy.get("[data-cy=bun]").first().find("button").contains("Добавить").click();
-        cy.get("[data-cy=bun-top]").should("exist");
-        cy.get("[data-cy=bun-bottom]").should("exist");
-        cy.get("[data-cy=ingredient-card]").each(($element) => {
+        cy.get(bun).first().find("button").contains("Добавить").click();
+        cy.get(constructorBunTop).should("exist");
+        cy.get(constructorBunBottom).should("exist");
+        cy.get(ingredient).each(($element) => {
             cy.wrap($element).find("button").contains("Добавить").click();
         });
-        cy.get("[data-cy=constructor-ingredient]").should("have.length", 2);
+        cy.get(constructorIngredient).should("have.length", 2);
     });
 
     it("Тестирование оформления заказа после авторизации", () => {
-        cy.intercept('GET', `${API_URL}/auth/user`, { fixture: 'user.json' }).as('getUser');
-        cy.intercept('POST', `${API_URL}/orders`, { fixture: 'order.json' }).as('postOrder');
+        cy.intercept('GET', `api/auth/user`, { fixture: 'user.json' }).as('getUser');
+        cy.intercept('POST', `api/orders`, { fixture: 'order.json' }).as('postOrder');
 
         cy.setCookie('accessToken', 'Bearer access-token-test');
         localStorage.setItem('refreshToken', 'refresh-token-test');
@@ -27,22 +33,22 @@ describe("Оформление заказа", () => {
 
         cy.wait('@getUser');
 
-        cy.get("[data-cy=bun]").first().find("button").contains("Добавить").click();
-        cy.get("[data-cy=ingredient-card]").first().find("button").contains("Добавить").click();
-        cy.get("[data-cy=ingredient-card]").eq(1).find("button").contains("Добавить").click();
+        cy.get(bun).first().find("button").contains("Добавить").click();
+        cy.get(ingredient).first().find("button").contains("Добавить").click();
+        cy.get(ingredient).eq(1).find("button").contains("Добавить").click();
 
         cy.get("button").contains("Оформить заказ").click();
         cy.wait('@postOrder');
 
-        cy.get("[data-cy=modal-ingredient]").should("exist");
+        cy.get(modalInfo).should("exist");
         cy.get("h2").contains("1").should("exist");
 
-        cy.get("[data-cy=modal-close]").click();
-        cy.get("[data-cy=modal-ingredient]").should("not.exist");
+        cy.get(modalClose).click();
+        cy.get(modalInfo).should("not.exist");
 
-        cy.get("[data-cy=bun-top]").should("not.exist");
-        cy.get("[data-cy=bun-bottom]").should("not.exist");
-        cy.get("[data-cy=constructor-ingredient]").should("have.length", 0);
+        cy.get(constructorBunTop).should("not.exist");
+        cy.get(constructorBunBottom).should("not.exist");
+        cy.get(constructorIngredient).should("have.length", 0);
 
         cy.clearCookies();
         cy.clearLocalStorage();
