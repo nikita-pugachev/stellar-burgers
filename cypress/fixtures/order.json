@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "order": {
+        "_id": "699c4b10a64177001b32d0de",
+        "ingredients": [
+            "1",
+            "2",
+            "3"
+        ],
+        "owner": "699b3fc8a64177001b32cf5f",
+        "status": "done",
+        "name": "Тестовый бургер",
+        "createdAt": "2026-02-23T12:41:52.237Z",
+        "updatedAt": "2026-02-23T12:41:52.447Z",
+        "number": 1
+    },
+    "name": "Тестовый бургер"
+}
