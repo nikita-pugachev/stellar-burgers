@@ -1,8 +1,8 @@
 import { TOrder } from '@utils-types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getOrdersApi } from '@api';
+import { getOrdersApi } from '../../utils/burger-api';
 
-interface IUserOrderState {
+export interface IUserOrderState {
   orders: TOrder[];
   loading: boolean;
   errors: string | null;
@@ -22,15 +22,12 @@ export const userOrders = createAsyncThunk('userOrder/userOrders', async () => {
 export const userOrdersSlice = createSlice({
   name: 'userOrder',
   initialState,
-  reducers: {
-    clearOrders: (state) => {
-      state.orders = [];
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(userOrders.pending, (state) => {
         state.loading = true;
+        state.errors = null;
       })
       .addCase(userOrders.fulfilled, (state, action) => {
         state.loading = false;
@@ -48,5 +45,4 @@ export const userOrdersSlice = createSlice({
 });
 
 export const { getUserOrders } = userOrdersSlice.selectors;
-export const { clearOrders } = userOrdersSlice.actions;
 export default userOrdersSlice.reducer;
