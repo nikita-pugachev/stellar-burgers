@@ -28,6 +28,6 @@ git clone git@github.com:nikita-pugachev/stellar-burgers.git
 npm i or npm install
 ```
 **3. Подключение сервера**
-Создайте файл ```.env``` и скопируйте в него содержимое из файла ```.env.example``
+Создайте файл ```.env``` и скопируйте в него содержимое из файла ```.env.example```
 **4. Запуск**
 В терминале введите команду для запуска: ```npm run start```
