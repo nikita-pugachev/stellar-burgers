@@ -1,4 +1,4 @@
-# Космоческая бургерная
+# 🚀 Космоческая бургерная
 
 ## О проекте
 Это учебный проект интернет-магазина. Я выполнил его для того, чтобы овладеть навыками использования React, React-Router и Redux. Также я реализовал JWT-авторизацию пользователей и покрыл более 70% кода unit и интеграционными тестами.
@@ -18,7 +18,7 @@
 * Cypress
 * CSS
 
-## Установка и запуск 
+## 🔎 Установка и запуск 
 **1. Клонирование репозитория**
 ```bash
 git clone git@github.com:nikita-pugachev/stellar-burgers.git
@@ -31,3 +31,7 @@ npm i or npm install
 Создайте файл ```.env``` и скопируйте в него содержимое из файла ```.env.example```
 **4. Запуск**
 В терминале введите команду для запуска: ```npm run start```
+
+## ✉️ Контакты автора
+[![Telegram](https://img.shields.io/badge/-Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/RUSSS1NG)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:RUSSSSing@yandex.ru)
